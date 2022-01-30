@@ -1,3 +1,5 @@
+const URL = 'db/data.json'
+
 // creamos la funcion
 function validarFormulario(){
     // removemos el div con la clase alert
@@ -78,8 +80,9 @@ function validarFormulario(){
         }
     }
 
-    $('form').submit();
-    $('form').action(alert('Formulario enviado correctamente!'));
+    enviarForm(mensaje);
+    /* $('form').submit();
+    $('form').action(alert('Formulario enviado correctamente!')); */
     
     return true;
     
@@ -96,6 +99,22 @@ $('textarea').focus(function(){
     $('.alert').remove();
     colorDefault('mensaje');
 });
+
+function enviarForm(mensaje) {
+    $.ajax({
+        method: 'GET',
+        URL: URL,
+        data: {
+            mensaje: mensaje
+        },
+        success: () => {
+          alert('Formulario enviado')
+        },
+        error: (error) => {
+            alert(error.status)
+        }
+    })
+}
 
 // creo un funcion de color por defecto a los bordes de los inputs
 function colorDefault(dato){
